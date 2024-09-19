@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+    <script>
+        // Set time limit (1 hour = 3600000 milliseconds)
+        const TIME_LIMIT = 3600000;
+
+        // Track the number of tab switches
+        let tabSwitchCount = 0;
+        const MAX_TAB_SWITCHES = 2;
+
+        // Function to handle tab-switch detection
+        function handleVisibilityChange() {
+            if (document.hidden) {
+                tabSwitchCount++;
+                if (tabSwitchCount > MAX_TAB_SWITCHES) {
+                    // End the test after exceeding the tab switch limit
+                    alert('You have switched tabs more than allowed! The test will be submitted.');
+                    // Submit the form
+                    document.getElementById('testForm').submit();
+                }
+            }
+        }
+
+        // Function to handle the time limit
+        function handleTimeLimit() {
+            setTimeout(function() {
+                alert('Time is up! The test will be submitted.');
+                // Submit the form
+                document.getElementById('testForm').submit();
+            }, TIME_LIMIT);
+        }
+
+        // Initialize functions
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        window.onload = handleTimeLimit;
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Test</h1>
+    <iframe src="https://forms.gle/o39cJPLyZRSoYHCC9" width="100%" height="600" frameborder="0">Loading…</iframe>
+    <form id="testForm" action="https://forms.gle/o39cJPLyZRSoYHCC9L" method="post" style="display:none;">
+        <!-- Hidden form for submission -->
+    </form>
+</body>
+</html>
